@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthappService } from 'src/services/authapp.service';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit{
 // costruttore con metodo ngOnInit
 
 // code injection creazione di una variabile privata all'interno del costructior
-  constructor(private route: Router) {}
+  constructor(private route: Router, private basicAuth: AuthappService) {}
 
   ngOnInit(): void {
 
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit{
 
     console.log(this.userId);
 
-    if(this.userId == "Pino" && this.password === "1234") {
+    if(this.basicAuth.autentica (this.userId, this.password)) {
       // utilizziamo il metodo navigate per far si che si possa accedere a tutte le rotte in maniera globale
       this.route.navigate(['welcome', this.userId]);
       this.autenticator = true;
